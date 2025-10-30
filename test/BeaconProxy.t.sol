@@ -47,7 +47,7 @@ contract BeaconProxyTest is Test {
         proxy3 = new BeaconProxy(address(beacon), initData3);
     }
 
-    function test_InitialDeployment() public {
+    function test_InitialDeployment() public view {
         // Check beacon implementation
         assertEq(beacon.implementation(), address(implementationV1));
         assertEq(beacon.owner(), owner);
