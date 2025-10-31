@@ -14,9 +14,12 @@ evm_version = "paris"
 rootstock_mainnet = "https://public-node.rsk.co"
 rootstock_testnet = "https://public-node.testnet.rsk.co"
 
-[etherscan]
-rootstock_mainnet = { api_url = "https://blockscout.com/rsk/mainnet/api", key = "${ROOTSTOCK_API_KEY}" }
-rootstock_testnet = { api_url = "https://blockscout.com/rsk/testnet/api", key = "${ROOTSTOCK_API_KEY}" }
+# Etherscan/Blockscout configuration for contract verification
+# Uncomment and set ROOTSTOCK_API_KEY environment variable if you want to verify contracts
+# export ROOTSTOCK_API_KEY=your_api_key_here
+# [etherscan]
+# rootstock_mainnet = { api_url = "https://blockscout.com/rsk/mainnet/api", key = "${ROOTSTOCK_API_KEY}" }
+# rootstock_testnet = { api_url = "https://blockscout.com/rsk/testnet/api", key = "${ROOTSTOCK_API_KEY}" }
 
 # Test configuration
 [profile.ci]
