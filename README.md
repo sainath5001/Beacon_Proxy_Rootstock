@@ -65,7 +65,7 @@ Beacon_Proxy_Rootstock/
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/sainath5001/Beacon_Proxy_Rootstock.git
 cd Beacon_Proxy_Rootstock
 ```
 
@@ -115,13 +115,14 @@ Set up environment variables:
 
 ```bash
 export PRIVATE_KEY=your_private_key_here
+export ROOTSTOCK_TESTNET_RPC=https://public-node.testnet.rsk.co
 ```
 
 Deploy to Rootstock testnet:
 
 ```bash
 forge script script/DeployBeaconProxy.s.sol:DeployBeaconProxy \
-  --rpc-url $rootstock_testnet \
+  --rpc-url $ROOTSTOCK_TESTNET_RPC \
   --private-key $PRIVATE_KEY \
   --broadcast \
   --verify
@@ -138,7 +139,7 @@ export PROXY_2_ADDRESS=<proxy2-address>
 export PROXY_3_ADDRESS=<proxy3-address>
 
 forge script script/UpgradeBeacon.s.sol:UpgradeBeacon \
-  --rpc-url $rootstock_testnet \
+  --rpc-url $ROOTSTOCK_TESTNET_RPC \
   --private-key $PRIVATE_KEY \
   --broadcast
 ```
@@ -175,6 +176,8 @@ forge script script/UpgradeBeacon.s.sol:UpgradeBeacon \
 ### UpgradeableBeacon
 
 The beacon contract stores the current implementation address and allows the owner to upgrade it. All proxy contracts query the beacon to get the implementation address.
+
+**Important Note**: Once deployed, the beacon contract address is immutable and cannot be changed. All proxies reference this beacon address permanently, so choose your deployment network carefully.
 
 ### BeaconProxy
 
@@ -311,9 +314,11 @@ forge test --match-test test_UpgradeBeaconToV2
 
 ### Rootstock Testnet
 
+View deployed contracts on the [Rootstock Testnet Explorer](https://explorer.testnet.rootstock.io/).
+
 ```bash
 forge script script/DeployBeaconProxy.s.sol:DeployBeaconProxy \
-  --rpc-url https://public-node.testnet.rsk.co \
+  --rpc-url $ROOTSTOCK_TESTNET_RPC \
   --private-key $PRIVATE_KEY \
   --broadcast \
   --verify \
@@ -339,8 +344,9 @@ Create a `.env` file:
 
 ```bash
 PRIVATE_KEY=your_private_key_here
+ROOTSTOCK_TESTNET_RPC=https://public-node.testnet.rsk.co
 ROOTSTOCK_API_KEY=your_blockscout_api_key_here  # For verification
-BEACON_ADDRESS=0x...  # Set after deployment
+BEACON_ADDRESS=0x...  # Set after deployment (immutable once deployed)
 PROXY_1_ADDRESS=0x...
 PROXY_2_ADDRESS=0x...
 PROXY_3_ADDRESS=0x...
@@ -407,6 +413,7 @@ UpgradeableBeacon beacon = new UpgradeableBeacon(
 - [OpenZeppelin Beacon Proxy Documentation](https://docs.openzeppelin.com/contracts/4.x/api/proxy#beacon)
 - [Foundry Book](https://book.getfoundry.sh/)
 - [Rootstock Documentation](https://rootstock.io/dev/)
+- [Rootstock Testnet Explorer](https://explorer.testnet.rootstock.io/)
 - [EIP-1967: Proxy Storage Slots](https://eips.ethereum.org/EIPS/eip-1967)
 
 ## License
